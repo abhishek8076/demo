@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from "react";
 import { Link } from "react-router-dom";
-import Form from "./form";
+import Form1 from "./form";
 import "./App.css";
 
 // function _ScrollToTop(props) {
@@ -20,20 +20,21 @@ const handleToggle =()=>{
 };
 return(
   <>
-  <header className="fixed-top site__header">
-    <Link to="./home">Home</Link>
+  {/* <header className="fixed-top site__header">
+    
         <div className="d-flex align-items-center justify-content-between">
           <div className="d-flex align-items-center">
-           
+{            
             <button className="menu__button  nav_ac" onClick={handleToggle}>
               
             {!isActive ?' click':'clicking'}
           </button>
-          <Form/>
-          
+         */}
+{/*           
 </div>
 </div>
-</header>
+</header> */} 
+{/* <Form1/> */}
 
   </>
 );

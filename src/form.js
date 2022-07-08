@@ -19,15 +19,40 @@ const Form1 = () => {
     phonecode: "",
     phone: ""
   }]);
+  const onsubmit=(e)=>{
+  e.preventDefault();
+  let errors=[...validata];
+  errors.map((value,index)=>{
+  if (input[index].fname==="") {
+    errors[index].fname = "enter first name"; 
+  }
+  else{
+    errors[index].fname=" ";
+  }
+  if(input[index].lname===""){
+    errors[index].lname="enter your last name";
+  }
+  else{
+    errors[index].lname=" ";
+  }
+setvalidata(errors);
+console.log(errors)
+})
+}
 
-  const [validata, setvalidata] = useState({
+  const [validata, setvalidata] = useState([{
     fname: "",
     lname: "",
     address: "",
     phonecode: "",
     phone: ""
-  }
+  }]
   );
+  const handleRemoveClick = (index) => {
+    const list = [...input];
+    list.splice(index, 1);
+    setInput(list);
+  };
 
   React.useEffect(() => {
     fetch('https://randomuser.me/api/')
@@ -40,7 +65,7 @@ const Form1 = () => {
       });
   }, []); // <-- Have to pass in [] here!
 
-  const onsubmit = (e) => {
+  const addMore = (e) => {
     let newfield = {
       fname: "",
       lname: "",
@@ -50,23 +75,7 @@ const Form1 = () => {
     }
 
     setInput([...input, newfield])
-    // e.preventDefault();
-    // let errors={...validata};
-
-    // if (input.fname==="") {
-    //   errors.fname = "enter first name"; 
-    // }
-    // else{
-    //   errors.fname=" ";
-    // }
-    // if(input.lname===""){
-    //   errors.lname="enter your last name";
-    // }
-    // else{
-    //   errors.lname=" ";
-    // }
-    // setvalidata(errors);
-
+    setvalidata([...validata,newfield])
   }
   const handlechange = (event, index) => {
     let data = [...input];
@@ -86,33 +95,32 @@ const Form1 = () => {
           <Row>
             <Col xs="4" style={styles.col}><Label>First Name</Label></Col>
             <Col xs="8"  ><Input style={{ "borderRadius": "50px" }} type="text" name="fname" value={value.fname} placeholder="First Name" onChange={(e) => { handlechange(e, index) }}></Input>
-
             </Col>
           </Row>
           <Row>
             <Col xs="4"></Col>
             <Col xs="8">
-              {validata.fname && <p>{validata.fname}</p>}
+              {validata[index].fname && <p>{validata[index].fname}</p>}
             </Col>
           </Row>
           <Row>
             <Col xs="4" style={styles.col}><Label>Last Name</Label></Col>
-            <Col xs="8" ><Input type="text" placeholder="Last Name" name="lname" onChange={handlechange}></Input>{validata.lname && <p>{validata.lname}</p>}</Col>
+            <Col xs="8" ><Input type="text" placeholder="Last Name" name="lname" onChange={(e) => { handlechange(e, index) }}></Input>{validata.lname && <p>{validata.lname}</p>}</Col>
 
           </Row>
           <Row>
             <Col xs="4" style={styles.col}><Label>Address</Label></Col>
-            <Col xs="8" ><Input type="text" name="address" onChange={handlechange}></Input></Col>
+            <Col xs="8" ><Input type="text" name="address" onChange={(e) => { handlechange(e, index) }}></Input></Col>
           </Row>
           <Row>
             <Col xs="2" style={styles.col}><Label>phone no</Label></Col>
-            <Col xs="2" ><Input type="number" placeholder="+91" name="phonecode" onChange={handlechange}></Input></Col>
-            <Col xs="8"><Input type="number" name="phone" onChange={handlechange}></Input></Col>
+            <Col xs="2" ><Input type="number" placeholder="+91" name="phonecode" onChange={(e) => { handlechange(e, index) }}></Input></Col>
+            <Col xs="8"><Input type="number" name="phone" onChange={(e) => { handlechange(e, index) }}></Input></Col>
           </Row>
           <Row>
             <Col xs="4" style={styles.col}><Label >Email</Label></Col>
             <Col xs="8">
-              <Input type="email" name="Email"></Input>
+              <Input type="email" name="Email" onChange={(e) => { handlechange(e, index) }}></Input>
             </Col>
           </Row>
           <Row>
@@ -120,7 +128,7 @@ const Form1 = () => {
             </Col>
 
             <Col xs="4">
-              <select className="form-control">
+              <select className="form-control" onChange={(e) => { handlechange(e, index) }}>
                 <option>Choose</option>
                 <option value="Afghanistan">Afghanistan</option>
                 <option value="Albania">Albania</option>
@@ -129,13 +137,16 @@ const Form1 = () => {
               </select>
             </Col>
           </Row>
+
           <Row>
           </Row>
+          {input.length !== 1 && <Button onClick={handleRemoveClick}>Remove</Button>} 
         </Container>
       })}
       <Row>
         <Col xs="2" >
-          <Button onClick={onsubmit}>Add more</Button>
+          <Button onClick={addMore}>Add more</Button>
+          <Button onClick={onsubmit}>Submit</Button>
         </Col>
       </Row>
     </>
@@ -144,3 +155,4 @@ const Form1 = () => {
 }
 
 export default Form1;
+
