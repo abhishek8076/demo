@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from "react";
-
+import React, { useState, } from "react";
 import "./App.css";
-import { Button, Form, FormGroup, Label, Col, Row, Input, DropdownToggle, DropdownMenu, FormText, Container, UncontrolledPopover, Select, Dropdown, DropdownItem } from 'reactstrap';
+import { Button,  Label, Col, Row, Input, Container, Img} from 'reactstrap';
+
+import {Link} from 'react-router-dom';
 const styles = {
   col: {
     "background": "#627799",
     "color": "red",
     "borderRadius": "50px",
-
   }
 }
 //{}  let aa=['s','erre']
@@ -39,7 +39,6 @@ setvalidata(errors);
 console.log(errors)
 })
 }
-
   const [validata, setvalidata] = useState([{
     fname: "",
     lname: "",
@@ -53,7 +52,6 @@ console.log(errors)
     list.splice(index, 1);
     setInput(list);
   };
-
   React.useEffect(() => {
     fetch('https://randomuser.me/api/')
       .then(results => results.json())
@@ -64,7 +62,6 @@ console.log(errors)
         console.log(name);
       });
   }, []); // <-- Have to pass in [] here!
-
   const addMore = (e) => {
     let newfield = {
       fname: "",
@@ -73,7 +70,6 @@ console.log(errors)
       phonecode: "",
       phone: ""
     }
-
     setInput([...input, newfield])
     setvalidata([...validata,newfield])
   }
@@ -86,12 +82,10 @@ console.log(errors)
     console.log(input)
   }
   return (
-
     <>
       <h1 style={{ "textAlign": "center" }}><font size="32" >Form</font></h1>
       {input.map((value, index) => {
         return <Container key={index} style={{ "border": '1px solid', "background": "#ebe134" }}>
-
           <Row>
             <Col xs="4" style={styles.col}><Label>First Name</Label></Col>
             <Col xs="8"  ><Input style={{ "borderRadius": "50px" }} type="text" name="fname" value={value.fname} placeholder="First Name" onChange={(e) => { handlechange(e, index) }}></Input>
@@ -106,7 +100,6 @@ console.log(errors)
           <Row>
             <Col xs="4" style={styles.col}><Label>Last Name</Label></Col>
             <Col xs="8" ><Input type="text" placeholder="Last Name" name="lname" onChange={(e) => { handlechange(e, index) }}></Input>{validata.lname && <p>{validata.lname}</p>}</Col>
-
           </Row>
           <Row>
             <Col xs="4" style={styles.col}><Label>Address</Label></Col>
@@ -126,7 +119,6 @@ console.log(errors)
           <Row>
             <Col xs="2" style={styles.col}><Label name="country">Country</Label>
             </Col>
-
             <Col xs="4">
               <select className="form-control" onChange={(e) => { handlechange(e, index) }}>
                 <option>Choose</option>
@@ -137,7 +129,6 @@ console.log(errors)
               </select>
             </Col>
           </Row>
-
           <Row>
           </Row>
           {input.length !== 1 && <Button onClick={handleRemoveClick}>Remove</Button>} 
@@ -149,10 +140,13 @@ console.log(errors)
           <Button onClick={onsubmit}>Submit</Button>
         </Col>
       </Row>
+      <Link to="./App.js">
+          <img
+            src="./logo512.png"
+            alt="example"
+          />
+        </Link>
     </>
   );
-
 }
-
 export default Form1;
-
