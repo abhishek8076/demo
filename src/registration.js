@@ -143,7 +143,12 @@ const Regform = () => {
                 <Row>
                     <Col>
                     <Button>Sumbit</Button>
+                    
                     </Col>
+                    <br/>
+                </Row>
+                <Row>
+                    
                 </Row>
             </Container>
         </>
