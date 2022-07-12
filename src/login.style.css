@@ -1,0 +1,12 @@
+.form{
+    border: 1px solid black;
+    background-color: "#54b088" !important;
+}
+h1{
+    text-align: center;
+}
+Label{
+    color: #000;
+    text-align: center !important;
+    size: 30px !important;
+}

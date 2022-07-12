@@ -1,7 +1,7 @@
 import React, { useState, } from "react";
 import "./App.css";
 import { Button,  Label, Col, Row, Input, Container, Img} from 'reactstrap';
-
+//import axios from 'axios'
 import {Link} from 'react-router-dom';
 const styles = {
   col: {
@@ -20,24 +20,40 @@ const Form1 = () => {
     phone: ""
   }]);
   const onsubmit=(e)=>{
-  e.preventDefault();
-  let errors=[...validata];
-  errors.map((value,index)=>{
-  if (input[index].fname==="") {
-    errors[index].fname = "enter first name"; 
-  }
-  else{
-    errors[index].fname=" ";
-  }
-  if(input[index].lname===""){
-    errors[index].lname="enter your last name";
-  }
-  else{
-    errors[index].lname=" ";
-  }
-setvalidata(errors);
-console.log(errors)
-})
+    fetch('http://localhost:8080/user',  {
+      method: "POST", 
+      body:JSON.stringify(input),
+      mode: 'cors',
+      headers: {
+          'Content-Type': 'application/json',
+      }
+  })
+      .then(results => results.json())
+      .then(data => {
+        const { name } = data.results[0];
+        
+        // setFirstName(name.first);
+        // setLastName(name.last);
+        console.log(name);
+      });
+//   e.preventDefault();
+//   let errors=[...validata];
+//   errors.map((value,index)=>{
+//   if (input[index].fname==="") {
+//     errors[index].fname = "enter first name"; 
+//   }
+//   else{
+//     errors[index].fname=" ";
+//   }
+//   if(input[index].lname===""){
+//     errors[index].lname="enter your last name";
+//   }
+//   else{
+//     errors[index].lname=" ";
+//   }
+// setvalidata(errors);
+// console.log(errors)
+// })
 }
   const [validata, setvalidata] = useState([{
     fname: "",
@@ -53,14 +69,7 @@ console.log(errors)
     setInput(list);
   };
   React.useEffect(() => {
-    fetch('https://randomuser.me/api/')
-      .then(results => results.json())
-      .then(data => {
-        const { name } = data.results[0];
-        // setFirstName(name.first);
-        // setLastName(name.last);
-        console.log(name);
-      });
+   
   }, []); // <-- Have to pass in [] here!
   const addMore = (e) => {
     let newfield = {
@@ -88,7 +97,7 @@ console.log(errors)
         return <Container key={index} style={{ "border": '1px solid', "background": "#ebe134" }}>
           <Row>
             <Col xs="4" style={styles.col}><Label>First Name</Label></Col>
-            <Col xs="8"  ><Input style={{ "borderRadius": "50px" }} type="text" name="fname" value={value.fname} placeholder="First Name" onChange={(e) => { handlechange(e, index) }}></Input>
+            <Col xs="8"  ><Input style={{ "borderRadius": "50px" }} type="text" name="fname" value={value.fname} placeholder="First Name" onChange={(e) => { handlechange(e, index) }} required></Input>
             </Col>
           </Row>
           <Row>
@@ -120,7 +129,7 @@ console.log(errors)
             <Col xs="2" style={styles.col}><Label name="country">Country</Label>
             </Col>
             <Col xs="4">
-              <select className="form-control" onChange={(e) => { handlechange(e, index) }}>
+              <select className="form-control" name="country" onChange={(e) => { handlechange(e, index) }}>
                 <option>Choose</option>
                 <option value="Afghanistan">Afghanistan</option>
                 <option value="Albania">Albania</option>
@@ -140,12 +149,7 @@ console.log(errors)
           <Button onClick={onsubmit}>Submit</Button>
         </Col>
       </Row>
-      <Link to="./App.js">
-          <img
-            src="./logo512.png"
-            alt="example"
-          />
-        </Link>
+     
     </>
   );
 }
