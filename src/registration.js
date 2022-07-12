@@ -99,7 +99,50 @@ const Regform = () => {
                 </Row>
                 <Row>
                     <Col xs="auto">
-                        <Label>Contant no.</Label>
+                        <Label>Contant </Label>
+                    </Col>
+                    <hr />
+                </Row>
+
+                <Row>
+                    <Col xs="8">
+                        <Label>Phone no</Label>
+                    </Col>
+                    <Col xs="4">
+                        <Label>Mobile no</Label>
+                    </Col>
+                    <hr />
+                </Row>
+                <Row>
+                    <Col xs="auto">
+                        <Label>STD code</Label>
+                    </Col>
+                    <Col xs="auto">
+                        <Input type="number" placeholder="std code"></Input>
+                    </Col>
+                    <Col xs="auto">
+                        <Input type="number" placeholder="phone no"></Input>
+                    </Col>
+                    <Col xs="2"><Label>+91</Label></Col>
+                    <Col xs="auto">
+                        <Input type="number" placeholder="mobile no"></Input>
+                    </Col>
+                    <Col>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                    <Label>Designation</Label>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                    <Input type="text" placeholder="Designation"></Input>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                    <Button>Sumbit</Button>
                     </Col>
                 </Row>
             </Container>
